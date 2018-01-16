@@ -8,30 +8,40 @@
 
 import UIKit
 import AVFoundation
+//import AudioToolbox
 
-class ViewController: UIViewController{
+class ViewController: UIViewController, AVAudioPlayerDelegate{
     
-    var xylophoneSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "note1", ofType: "wav")!)
-    var audioPlayer = AVAudioPlayer()
+    var audioPlayer: AVAudioPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-
-
+    
     @IBAction func notePressed(_ sender: UIButton) {
+
+        // Implementation with AVFoundation
+        let soundUrl = Bundle.main.url(forResource: "note1", withExtension: "wav")
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundUrl!)
+        } catch {
+            print(error)
+        }
         
-        print(sender.tag)
+        audioPlayer.play()
         
-//        if sender.tag == 1 {
-//            print("red")
-//        } else if sender.tag == 2 {
-//            print("orange")
-//        } else if sender.tag == 3 {
-//            print("yellow")
+        // Implementation with AudioToolbox
+//        if let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav") {
+//            var mySound: SystemSoundID = 0
+//            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
+//            // Play
+//            AudioServicesPlaySystemSound(mySound)
 //        }
-//
+        
+        
+        
         let sender = sender.tag
         
         switch sender {
