@@ -13,17 +13,18 @@ import AVFoundation
 class ViewController: UIViewController, AVAudioPlayerDelegate{
     
     var audioPlayer: AVAudioPlayer!
+    let soundArray = ["note1","note2","note3","note4","note5","note6","note7"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    
-    @IBAction func notePressed(_ sender: UIButton) {
-
+    func playSound(soundFileName: String) {
+        
         // Implementation with AVFoundation
-        let soundUrl = Bundle.main.url(forResource: "note1", withExtension: "wav")
-
+        let soundUrl = Bundle.main.url(forResource: soundFileName, withExtension: "wav")
+        
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: soundUrl!)
         } catch {
@@ -33,35 +34,18 @@ class ViewController: UIViewController, AVAudioPlayerDelegate{
         audioPlayer.play()
         
         // Implementation with AudioToolbox
-//        if let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav") {
-//            var mySound: SystemSoundID = 0
-//            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
-//            // Play
-//            AudioServicesPlaySystemSound(mySound)
-//        }
+        //        if let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav") {
+        //            var mySound: SystemSoundID = 0
+        //            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
+        //            // Play
+        //            AudioServicesPlaySystemSound(mySound)
+        //        }
         
+    }
+    
+    @IBAction func notePressed(_ sender: UIButton) {
+        playSound(soundFileName: soundArray[sender.tag - 1])
         
-        
-        let sender = sender.tag
-        
-        switch sender {
-        case 1:
-            print("red")
-        case 2:
-            print("orange")
-        case 3:
-            print("yellow")
-        case 4:
-            print("green")
-        case 5:
-                print("green blue")
-        case 6:
-            print("blue")
-        case 7 :
-            print("purple")
-        default:
-            print("Error")
-        }
     }
     
   
